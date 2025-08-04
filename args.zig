@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn getArgs(allocator: std.mem.Allocator) ![][]const u8 {
+pub fn get(allocator: std.mem.Allocator) ![][]const u8 {
     var args = try std.process.argsWithAllocator(allocator);
     defer args.deinit();
 

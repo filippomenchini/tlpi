@@ -6,6 +6,6 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     defer _ = gpa.deinit();
 
-    const arguments = try args.getArgs(allocator);
+    const arguments = try args.get(allocator);
     defer allocator.free(arguments);
 }
