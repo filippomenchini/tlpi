@@ -36,8 +36,12 @@ pub fn main() !void {
         },
         linux.S.IRUSR | linux.S.IWUSR,
     );
-    if (file_fd > std.math.maxInt(linux.fd_t)) {
+    if (linux.E.init(file_fd) != linux.E.SUCCESS)
         std.process.exit(1);
+    defer {
+        const close_status = linux.close(@intCast(file_fd));
+        if (linux.E.init(close_status) != linux.E.SUCCESS)
+            std.process.exit(1);
     }
 
     const fds: [2]linux.fd_t = [2]linux.fd_t{
@@ -54,6 +58,8 @@ pub fn main() !void {
         );
 
         if (bytes_read == 0) break; // EOF
+        if (linux.E.init(bytes_read) != linux.E.SUCCESS)
+            std.process.exit(1);
 
         if (bytes_read > BUFFER_SIZE) {
             std.process.exit(1);
@@ -82,6 +88,8 @@ pub fn writeToFd(
             buf[total_written..].ptr,
             count - total_written,
         );
+        if (linux.E.init(bytes_written) != linux.E.SUCCESS)
+            std.process.exit(1);
 
         if (bytes_written > (count - total_written)) {
             return error.WriteError;
