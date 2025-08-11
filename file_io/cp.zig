@@ -68,10 +68,12 @@ pub fn main() !void {
         if (linux.E.init(bytes_read) != .SUCCESS or bytes_read > BUFFER_SIZE)
             std.process.exit(1);
 
-        var is_hole: bool = false;
+        var is_hole: bool = true;
         for (buffer[0..bytes_read]) |byte| {
-            if (byte != 0) break;
-            is_hole = true;
+            if (byte != 0) {
+                is_hole = false;
+                break;
+            }
         }
 
         if (is_hole) {
