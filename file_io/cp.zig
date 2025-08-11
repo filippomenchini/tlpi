@@ -68,8 +68,14 @@ pub fn main() !void {
         if (linux.E.init(bytes_read) != .SUCCESS or bytes_read > BUFFER_SIZE)
             std.process.exit(1);
 
-        if (std.mem.eql(u8, buffer[0..bytes_read], &std.mem.zeroes([BUFFER_SIZE]u8))) {
-            const offset = linux.lseek(@intCast(destination_fd), BUFFER_SIZE, linux.SEEK.CUR);
+        var is_hole: bool = false;
+        for (buffer[0..bytes_read]) |byte| {
+            if (byte != 0) break;
+            is_hole = true;
+        }
+
+        if (is_hole) {
+            const offset = linux.lseek(@intCast(destination_fd), @intCast(bytes_read), linux.SEEK.CUR);
             if (linux.E.init(offset) != .SUCCESS)
                 std.process.exit(1);
             continue;
