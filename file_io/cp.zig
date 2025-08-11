@@ -32,6 +32,10 @@ pub fn main() !void {
         .{ .ACCMODE = .RDONLY },
         linux.S.IRUSR,
     );
+
+    if (linux.E.init(source_fd) != .SUCCESS)
+        std.process.exit(1);
+
     const destination_fd = linux.open(
         destination_file_path.?,
         .{
@@ -41,7 +45,7 @@ pub fn main() !void {
         linux.S.IRUSR | linux.S.IWUSR,
     );
 
-    if (linux.E.init(source_fd) != .SUCCESS or linux.E.init(destination_fd) != .SUCCESS)
+    if (linux.E.init(destination_fd) != .SUCCESS)
         std.process.exit(1);
 
     defer {
@@ -63,6 +67,13 @@ pub fn main() !void {
         if (bytes_read == 0) break; //EOF
         if (linux.E.init(bytes_read) != .SUCCESS or bytes_read > BUFFER_SIZE)
             std.process.exit(1);
+
+        if (std.mem.eql(u8, buffer[0..bytes_read], &std.mem.zeroes([BUFFER_SIZE]u8))) {
+            const offset = linux.lseek(@intCast(destination_fd), BUFFER_SIZE, linux.SEEK.CUR);
+            if (linux.E.init(offset) != .SUCCESS)
+                std.process.exit(1);
+            continue;
+        }
 
         var total_written: usize = 0;
         while (total_written < bytes_read) {
