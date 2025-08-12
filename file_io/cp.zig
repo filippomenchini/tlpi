@@ -52,7 +52,8 @@ pub fn main() !void {
         const closed_source = linux.close(@intCast(source_fd));
         const closed_destination = linux.close(@intCast(destination_fd));
 
-        if (linux.E.init(closed_source) != .SUCCESS or linux.E.init(closed_destination) != .SUCCESS)
+        if (linux.E.init(closed_source) != .SUCCESS or
+            linux.E.init(closed_destination) != .SUCCESS)
             std.process.exit(1);
     }
 
@@ -65,7 +66,8 @@ pub fn main() !void {
         );
 
         if (bytes_read == 0) break; //EOF
-        if (linux.E.init(bytes_read) != .SUCCESS or bytes_read > BUFFER_SIZE)
+        if (linux.E.init(bytes_read) != .SUCCESS or
+            bytes_read > BUFFER_SIZE)
             std.process.exit(1);
 
         var is_hole: bool = true;
@@ -77,7 +79,11 @@ pub fn main() !void {
         }
 
         if (is_hole) {
-            const offset = linux.lseek(@intCast(destination_fd), @intCast(bytes_read), linux.SEEK.CUR);
+            const offset = linux.lseek(
+                @intCast(destination_fd),
+                @intCast(bytes_read),
+                linux.SEEK.CUR,
+            );
             if (linux.E.init(offset) != .SUCCESS)
                 std.process.exit(1);
             continue;
@@ -91,7 +97,8 @@ pub fn main() !void {
                 bytes_read - total_written,
             );
 
-            if (linux.E.init(bytes_written) != .SUCCESS or bytes_written > (bytes_read - total_written))
+            if (linux.E.init(bytes_written) != .SUCCESS or
+                bytes_written > (bytes_read - total_written))
                 std.process.exit(1);
 
             total_written += bytes_written;
