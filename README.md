@@ -15,11 +15,12 @@ Any suggestion on how to make these programs better are well accepted!
 Answers to exercises can be found at the top of every program.
 
 ## Exercises list
-**File I/O**
-- 4.10
+
+### File I/O
+- **4.10** 
     - 4-1 [tee](file_io/tee.zig)
     - 4-2 [cp](file_io/cp.zig)
-- 5.14
+- **5.14** 
     - 5-1 Can't do, C macros stuff :(
     - 5-2 [seek append](file_io/wa.zig)
     - 5-3 [atomic append](file_io/aa.zig)
