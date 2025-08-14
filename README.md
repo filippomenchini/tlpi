@@ -22,7 +22,7 @@ Answers to exercises can be found at the top of every program.
     - 4-2 [cp](file_io/cp.zig)
 - **5.14** 
     - 5-1 Can't do, C macros stuff :(
-    - 5-2 [seek append](file_io/wa.zig)
+    - 5-2 [seek append](file_io/sa.zig)
     - 5-3 [atomic append](file_io/aa.zig)
     - 5-4 [dup](file_io/dup.zig)
     - 5-5 [compare file descriptors](file_io/cfd.zig)
@@ -31,4 +31,4 @@ Answers to exercises can be found at the top of every program.
 
 ### Processes
 - **6.10**
-    - 6.1 [mem sectors](processes/mem_sectors.zig) ([C impl](processes/mem_sectors.c))
+    - 6.1 [mem segments](processes/mem_segments.zig) ([C impl](processes/mem_segments.c))
