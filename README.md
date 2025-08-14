@@ -31,4 +31,11 @@ Answers to exercises can be found at the top of every program.
 
 ### Processes
 - **6.10**
-    - 6.1 [mem segments](processes/mem_segments.zig) ([C impl](processes/mem_segments.c))
+    - 6-1 [mem segments](processes/mem_segments.zig) ([C impl](processes/mem_segments.c))
+    - 6-2 N/A
+    - 6-3 N/A
+
+### Memory allocation
+- **7.4**
+    - 7-1 [free and sbrk](memory_allocation/free_and_sbrk.zig)
+    - 7-2 [malloc and free](memory_allocation/mf.zig)
