@@ -28,3 +28,7 @@ Answers to exercises can be found at the top of every program.
     - 5-5 [compare file descriptors](file_io/cfd.zig)
     - 5-6 [write explanation](file_io/we.zig)
     - 5-7 [scatter gather io](file_io/sgio.zig)
+
+### Processes
+- **6.10**
+    - 6.1 [mem sectors](processes/mem_sectors.zig) ([C impl](processes/mem_sectors.c))
