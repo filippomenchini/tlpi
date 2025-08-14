@@ -15,6 +15,9 @@
 // the zig compiler behavies differently than the C compiler.
 //
 // Open to better ways to show this behaviour!
+//
+// EDIT: the size different could also be related to the printing functions, std.debug.print is
+// pretty different that what printf does.
 
 const std = @import("std");
 
